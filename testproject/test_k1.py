@@ -57,18 +57,21 @@ calculation = driver.find_element_by_id("submit")
 result = driver.find_element_by_id("result")
 
 # TC1
-assert result.is_displayed() == 0
+def test_tc1():
+    assert result.is_displayed() == 0
 
 # TC2
 # calculation by site valid datas
-a_num.send_keys(a)
-b_num.send_keys(b)
-calculation.click()
-assert result.text == '10'
+def test_tc2():
+    a_num.send_keys(a)
+    b_num.send_keys(b)
+    calculation.click()
+    assert result.text == '10'
 
 # TC3
 # calculation by site empty fields
-a_num.clear()
-b_num.clear()
-calculation.click()
-assert result.text == 'NaN'
+def test_tc3():
+    a_num.clear()
+    b_num.clear()
+    calculation.click()
+    assert result.text == 'NaN'

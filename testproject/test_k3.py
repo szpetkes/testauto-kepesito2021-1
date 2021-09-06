@@ -35,14 +35,6 @@ options = Options()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
 
-
-@pytest.fixture(scope='session')
-def browser():
-    driver = webdriver.Chrome
-    driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k3.html")
-    return driver
-
-
 driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k3.html")
 time.sleep(1)
 
@@ -54,21 +46,28 @@ title3 = 'abcd'
 text = driver.find_element_by_id("title")
 error = driver.find_element_by_xpath('/html/body/form/span')
 
+
 # TC1
 # valid data
-text.send_keys(title1)
-assert error.is_enabled()
+def test_tc1():
+    text.send_keys(title1)
+    assert error.is_enabled()
+
 
 # TC2
 # invalid data
-text.clear()
-text.send_keys(title2)
-assert error.text == 'Only a-z and 0-9 characters allewed'
+def test_tc2():
+    text.clear()
+    text.send_keys(title2)
+    assert error.text == 'Only a-z and 0-9 characters allewed'
+
 
 # TC3
 # short data
-text.clear()
-text.send_keys(title3)
-assert error.text == 'Title should be at least 8 characters; you entered 4.'
+def test_tc3():
+    text.clear()
+    text.send_keys(title3)
+    assert error.text == 'Title should be at least 8 characters; you entered 4.'
+
 
 driver.close()

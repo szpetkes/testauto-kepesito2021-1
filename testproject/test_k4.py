@@ -28,43 +28,38 @@ Az alábbi teszt eseteket kell kidolgozzad:
         az result mező helyes karaktert fog mutatni
 
 """""
-
-import time
-
-import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-
-driver = webdriver.Chrome(ChromeDriverManager().install())
+import time
 
 options = Options()
-options.add_argument('--headless')
+# options.add_argument('--headless')
 options.add_argument('--disable-gpu')
-
-
-@pytest.fixture(scope='session')
-def browser():
-    driver = webdriver.Chrome()
-    driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k4.html")
-    return driver
-
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k4.html")
-time.sleep(1)
+time.sleep(2)
 
-# elements
-chr = driver.find_element_by_id('chr')
-op = driver.find_element_by_id('op')
-number = driver.find_element_by_id('num')
-calc_button = driver.find_element_by_id('submit')
-result = driver.find_element_by_id('result')
-text_check = driver.find_element_by_xpath('/html/body/div/div/p[3]/text()')
+# !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+# Find locators:
+char = driver.find_element_by_id("chr")
+op = driver.find_element_by_id("op")
+num = driver.find_element_by_id("num")
+submit_btn = driver.find_element_by_id("submit")
+result = driver.find_element_by_id("result")
 
-# TC1
-# page showed up and text is displayed
-assert text_check.text == "!"  # $%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+test_data = [""]
+ref_data = [""]
 
-# Tc2
-# datas shown up on the page
-assert chr.text
+
+def test_tc1():
+    assert result.text == ref_data[0]
+
+
+def test_tc2():
+    assert result.text == ref_data[1]
+
+
+def test_tc3():
+    assert result.text == ref_data[2]
