@@ -43,6 +43,7 @@ def browser():
     driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k1.html")
     return driver
 
+
 driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k1.html")
 time.sleep(1)
 
