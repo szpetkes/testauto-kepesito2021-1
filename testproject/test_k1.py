@@ -40,9 +40,8 @@ options.add_argument('--disable-gpu')
 @pytest.fixture(scope='session')
 def browser():
     driver = webdriver.Chrome()
-    driver.get("http://localhost:9999/randomajax.html")
+    driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k1.html")
     return driver
-
 
 driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k1.html")
 time.sleep(1)
@@ -59,8 +58,8 @@ result = driver.find_element_by_id("result")
 # TC1
 assert result.is_displayed() == 0
 
-#TC2
-#calculation by site valid datas
+# TC2
+# calculation by site valid datas
 a_num.send_keys(a)
 b_num.send_keys(b)
 calculation.click()
@@ -72,4 +71,3 @@ a_num.clear()
 b_num.clear()
 calculation.click()
 assert result.text == 'NaN'
-
