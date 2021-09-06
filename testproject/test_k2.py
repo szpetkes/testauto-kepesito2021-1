@@ -19,25 +19,44 @@ Az alábbi teszteseteket kell lefedned:
     bal és a jobb oldal ugyan azt a színt tartalmazza akkor a Correct! felirat jelenik meg. ha akkor amikor eltérő 
     szín van a jobb és bal oldalon akkor az Incorrect! felirat kell megjelenjen. "" """
 
+import time
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-import time
 
-opt = Options()
-opt.headless = False
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=opt)
-driver.set_window_rect(1200, 400, 1300, 1000)
+options = Options()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
 
 
 @pytest.fixture(scope='session')
 def browser():
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome
     driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k2.html")
     return driver
 
 
 driver.get("https://ambitious-sky-0d3acbd03.azurestaticapps.net/k2.html")
 time.sleep(1)
+
+# elements
+color = driver.find_element_by_id("randomColor")
+test_color = driver.find_element_by_id("testColor")
+start = driver.find_element_by_id("start")
+stop = driver.find_element_by_id("stop")
+result = driver.find_element_by_id("result")
+
+# TC1
+# color check
+assert color.is_displayed()
+assert color.text == test_color.text
+
+# TC2
+start.click()
+time.sleep(3)
+stop.click()
+assert result.text == "Incorrect!" or "Correct!"
