@@ -43,23 +43,26 @@ time.sleep(2)
 
 # !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 # Find locators:
-char = driver.find_element_by_id("chr")
-op = driver.find_element_by_id("op")
-num = driver.find_element_by_id("num")
+char = driver.find_elements_by_xpath("//p[3]")
+character = driver.find_element_by_id("chr")
+operator = driver.find_element_by_id("op")
+number = driver.find_element_by_id("num")
 submit_btn = driver.find_element_by_id("submit")
 result = driver.find_element_by_id("result")
 
 test_data = [""]
-ref_data = [""]
-
+reference_data = ["""!'#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~""",
+                  ["+", "-"]]
 
 def test_tc1():
-    assert result.text == ref_data[0]
+    assert char.text == reference_data[0]
 
 
 def test_tc2():
-    assert result.text == ref_data[1]
+    assert character.text in reference_data[0]
+    assert operator.text == reference_data[1][0] or reference_data[1][1]
+    assert number == int
+    assert result.text == reference_data[1]
 
 
 def test_tc3():
-    assert result.text == ref_data[2]
